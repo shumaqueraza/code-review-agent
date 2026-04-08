@@ -1,0 +1,26 @@
+[project]
+name = "code-review-agent"
+version = "1.0.0"
+description = "An RL environment where AI agents review pull requests and identify seeded bugs, security vulnerabilities, and style violations"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openenv-core>=0.2.2",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "openai>=1.58.0",
+    "pyyaml>=6.0.0",
+    "httpx>=0.28.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]

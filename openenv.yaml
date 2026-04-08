@@ -1,0 +1,50 @@
+name: code-review-agent
+version: 1.0.0
+description: >
+  An RL environment where an AI agent reviews pull requests and identifies
+  real bugs, security vulnerabilities, and style violations seeded into code diffs.
+  Built for the Scaler x Meta PyTorch Hackathon 2026.
+
+author: MD Shumaque Raza
+tags:
+  - openenv
+  - code-review
+  - software-engineering
+  - security
+  - real-world
+
+tasks:
+  - name: detect_logic_bug
+    difficulty: easy
+    description: Detect an off-by-one or logic error seeded into a Python function diff.
+  - name: detect_security_flaw
+    difficulty: medium
+    description: Identify a security vulnerability (SQL injection, hardcoded secret, path traversal) in a diff.
+  - name: full_pr_review
+    difficulty: hard
+    description: >
+      Review a multi-file PR diff containing a mix of logic bugs, security issues,
+      and style violations. Score based on how many are caught vs missed vs false-positived.
+
+observation_space:
+  type: object
+  fields:
+    diff: string
+    file_path: string
+    task_name: string
+    step_number: integer
+    pr_context: string
+
+action_space:
+  type: object
+  fields:
+    findings:
+      type: array
+      items:
+        line_number: integer
+        severity: string  # critical|high|medium|low|info
+        category: string  # bug|security|style|performance
+        description: string
+
+reward_range: [0.0, 1.0]
+max_steps: 5
