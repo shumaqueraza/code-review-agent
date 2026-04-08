@@ -39,7 +39,9 @@ class Finding(BaseModel):
 class CodeReviewAction(Action):
     """Action for code review environment - list of findings."""
 
-    findings: list[Finding]
+    findings: list[Finding] = Field(
+        default_factory=list, description="List of issues found in the diff"
+    )
 
 
 class CodeReviewObservation(Observation):
