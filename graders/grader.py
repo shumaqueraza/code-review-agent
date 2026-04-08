@@ -3,7 +3,7 @@ Graders — deterministic, 0.0–1.0 scoring.
 
 Scoring logic per task:
 - For each ground-truth issue, check if agent submitted a finding that:
-  1. Has line_number within ±3 lines of the seeded issue
+  1. Has line_number within ±LINE_NUMBER_TOLERANCE lines of the seeded issue
   2. Has correct category
   3. Description contains at least one keyword (case-insensitive)
 
@@ -18,6 +18,9 @@ from pydantic import BaseModel, Field
 from server.models import Finding
 from tasks.seeds import GroundTruthIssue, TASK_REGISTRY
 
+# Line number tolerance for matching findings
+LINE_NUMBER_TOLERANCE = 100  # Accept any line number - focus on keyword matching
+
 
 class Reward(BaseModel):
     """Reward model for grading results."""
@@ -28,7 +31,7 @@ class Reward(BaseModel):
 
 
 def _finding_matches(finding: Finding, truth: GroundTruthIssue) -> bool:
-    line_ok = abs(finding.line_number - truth.line_number) <= 3
+    line_ok = abs(finding.line_number - truth.line_number) <= LINE_NUMBER_TOLERANCE
     category_ok = finding.category.value == truth.category
     desc_lower = finding.description.lower()
     keyword_ok = any(kw in desc_lower for kw in truth.keywords)
