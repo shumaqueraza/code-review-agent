@@ -10,14 +10,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy dependency files first (for better caching)
-COPY pyproject.toml .
+# Copy all files first (for better caching and to ensure README.md is available)
+COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -e .
-
-# Copy application files
-COPY . .
 
 # Create non-root user
 RUN adduser --disabled-password --gecos "" appuser \
