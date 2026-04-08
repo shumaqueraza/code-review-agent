@@ -50,3 +50,6 @@ Thumbs.db
 
 # Temporary directories
 ProgrammingPythonRLfilestemp_init/
+
+# Custom testing files (not for production)
+custom_inference.py
