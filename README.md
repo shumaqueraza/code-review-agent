@@ -207,10 +207,12 @@ uv run python inference.py
 
 | Task | Model | Score |
 |---|---|---|
-| detect_logic_bug | Qwen/Qwen2.5-72B-Instruct | ~0.70 |
-| detect_security_flaw | Qwen/Qwen2.5-72B-Instruct | ~0.80 |
-| full_pr_review | Qwen/Qwen2.5-72B-Instruct | ~0.65 |
-| **Average** | | **~0.72** |
+| detect_logic_bug | Qwen/Qwen2.5-72B-Instruct | 1.00 |
+| detect_security_flaw | Qwen/Qwen2.5-72B-Instruct | 0.50-1.00 |
+| full_pr_review | Qwen/Qwen2.5-72B-Instruct | 0.50-0.75 |
+| **Average** | | **0.50-0.83** |
+
+**Note:** Scores vary based on model's ability to identify correct line numbers in diffs and use required keywords in descriptions. Line number tolerance is ±10 to account for model limitations in counting lines within multi-file diffs.
 
 ---
 
