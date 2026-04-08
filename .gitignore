@@ -53,3 +53,7 @@ ProgrammingPythonRLfilestemp_init/
 
 # Custom testing files (not for production)
 custom_inference.py
+
+# LLM context files (auto-generated documentation)
+CONTEXT_FOR_LLM.md
+DEPLOYMENT_SUMMARY.md

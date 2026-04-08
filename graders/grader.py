@@ -19,7 +19,9 @@ from server.models import Finding
 from tasks.seeds import GroundTruthIssue, TASK_REGISTRY
 
 # Line number tolerance for matching findings
-LINE_NUMBER_TOLERANCE = 100  # Accept any line number - focus on keyword matching
+# Models struggle with exact line counting in diffs, so we use ±10 line tolerance
+# This accounts for model limitations while still requiring approximate correctness
+LINE_NUMBER_TOLERANCE = 10
 
 
 class Reward(BaseModel):

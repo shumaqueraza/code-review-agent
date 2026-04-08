@@ -71,9 +71,11 @@ class Finding(BaseModel):
 
 Reward is computed as F1 score over ground-truth seeded issues:
 
-- **True positive**: finding within ±3 lines of a seeded issue, correct category, description contains at least one matching keyword
+- **True positive**: finding within ±10 lines of seeded issue, correct category, description contains at least one matching keyword
 - **Precision penalty**: false positives beyond 1:1 ratio reduce precision
 - **Partial credit**: catching 2 of 4 issues scores ~0.67 recall
+
+**Why ±10 line tolerance?** AI models struggle with exact line counting in unified diffs due to hunk headers, context lines, and multi-file structures. This tolerance ensures models are graded on identifying the right issues rather than perfect line counting.
 
 ```
 precision = adjusted_tp / total_findings
