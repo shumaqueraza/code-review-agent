@@ -16,9 +16,11 @@ COPY . .
 # Install Python dependencies
 RUN pip install --no-cache-dir -e .
 
-# Create non-root user
-RUN adduser --disabled-password --gecos "" appuser \
-    && chown -R appuser:appuser /app
+# Create non-root user and set permissions
+RUN adduser --disabled-password --gecos "" appuser && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
 USER appuser
 
 # Expose port
