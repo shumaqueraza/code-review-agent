@@ -53,13 +53,13 @@ EASY_DIFF = SeededDiff(
  """,
     ground_truth=[
         GroundTruthIssue(
-            line_number=16,
+            line_number=17,
             severity="high",
             category="bug",
             keywords=["off-by-one", "off by one", "page - 1", "start index", "wrong start", "pagination"],
         ),
         GroundTruthIssue(
-            line_number=32,
+            line_number=28,
             severity="medium",
             category="bug",
             keywords=["total_pages", "ceiling", "last page", "truncat", "missing page", "integer division"],
@@ -109,13 +109,13 @@ MEDIUM_DIFF = SeededDiff(
 """,
     ground_truth=[
         GroundTruthIssue(
-            line_number=27,
+            line_number=15,
             severity="critical",
             category="security",
             keywords=["sql injection", "sql", "f-string", "format string", "parameterized", "unsanitized", "injection"],
         ),
         GroundTruthIssue(
-            line_number=44,
+            line_number=24,
             severity="critical",
             category="security",
             keywords=["hardcoded", "secret", "hard-coded", "credential", "jwt secret", "plaintext secret"],
@@ -195,25 +195,25 @@ HARD_DIFF = SeededDiff(
 """,
     ground_truth=[
         GroundTruthIssue(
-            line_number=20,
+            line_number=23,
             severity="high",
             category="security",
             keywords=["path traversal", "directory traversal", "filename", "sanitize", "secure_filename", "arbitrary path"],
         ),
         GroundTruthIssue(
-            line_number=34,
+            line_number=39,
             severity="critical",
             category="security",
             keywords=["command injection", "shell=True", "shell injection", "subprocess", "arbitrary command", "user-provided"],
         ),
         GroundTruthIssue(
-            line_number=47,
+            line_number=50,
             severity="critical",
             category="security",
             keywords=["pickle", "deserialization", "unsafe deserialization", "pickle.loads", "arbitrary code"],
         ),
         GroundTruthIssue(
-            line_number=55,
+            line_number=61,
             severity="critical",
             category="security",
             keywords=["hardcoded", "credential", "database url", "password", "plaintext", "connection string"],
