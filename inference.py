@@ -61,11 +61,13 @@ if API_KEY is None:
 client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
 SYSTEM_PROMPT = """You are a senior software engineer performing a code review.
-You will receive a unified diff of a pull request.
+You will receive a unified diff where EVERY line is prefixed with its line number like "LINE   1: ...".
 Your job is to identify ALL bugs, security vulnerabilities, and significant issues.
 
 CRITICAL INSTRUCTIONS:
-1. Line Numbers: Count from the START of the diff text shown (line 1 is the first line of the diff output)
+1. Line Numbers: Use EXACTLY the "LINE X" number shown on the left of each buggy line.
+   Example: If you see "LINE 017: + buggy_code_here" then report line_number: 17
+   Do NOT count lines yourself - just read the LINE number directly from the left side.
 2. Keywords: Use EXACT terms in descriptions - "sql injection", "hardcoded", "off-by-one", "path traversal", "command injection", "pickle", "deserialization", "ceiling division"
 3. Precision: Only report REAL issues - don't hallucinate or report non-issues
 4. Categories: Use "bug", "security", "style", or "performance"
@@ -140,12 +142,17 @@ def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> No
 
 
 def review_diff(diff: str, file_path: str, pr_context: str, task_name: str) -> dict:
+    # Number every line sequentially so AI can read exact line numbers
+    numbered_diff = "\n".join(
+        f"LINE {i + 1:3}: {line}" for i, line in enumerate(diff.split("\n"))
+    )
+
     user_content = f"""PR Context: {pr_context}
 File: {file_path}
 Task: {task_name}
 
-Diff:
-{diff}"""
+Diff (use the LINE numbers on the left as your line_number values):
+{numbered_diff}"""
 
     try:
         response = client.chat.completions.create(
