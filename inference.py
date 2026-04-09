@@ -214,7 +214,8 @@ def run_task(task_name: str, diff: str, file_path: str, pr_context: str) -> dict
             step=steps_taken, action=action_str, reward=reward, done=done, error=error
         )
 
-        score = reward  # F1 score is already in [0, 1]
+        # Clamp score to (0, 1) range - hackathon requires strictly between 0 and 1
+        score = min(0.999, max(0.001, reward))
         success = score >= SUCCESS_SCORE_THRESHOLD
 
     except Exception as exc:
